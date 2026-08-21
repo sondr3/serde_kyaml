@@ -1,0 +1,16 @@
+[package]
+name = "serde_kyaml"
+version = "0.1.0"
+edition = "2024"
+description = "KYAML (KEP-5295) serializer for serde: a strict, unambiguous subset of YAML"
+license = "MIT OR Apache-2.0"
+
+[dependencies]
+serde = "1"
+serde_json = { version = "1", features = ["preserve_order"] }
+yaml_serde = "0.10"
+unicode-properties = "0.1"
+
+[dev-dependencies]
+indoc = "2"
+serde = { version = "1", features = ["derive"] }
