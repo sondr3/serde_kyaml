@@ -72,45 +72,36 @@ mod string;
 
 pub use de::from_str;
 pub use error::{Error, Result};
-
 use serde::Serialize;
 
 /// Serializes `value` as a bare KYAML value, with no `---` header and no
 /// trailing newline. Mirrors the Go encoder's `Marshal`.
 pub fn to_string<T: Serialize>(value: &T) -> Result<String> {
-    render(value, false)
+	render(value, false)
 }
 
 /// Serializes `value` as a KYAML document: `"---\n"`, the value, and a
 /// trailing newline. Mirrors the Go encoder's `FromObject`.
 pub fn to_document<T: Serialize>(value: &T) -> Result<String> {
-    Ok(format!("---\n{}\n", to_string(value)?))
+	Ok(format!("---\n{}\n", to_string(value)?))
 }
 
 /// Serializes `value` as a single line of KYAML: `", "` separators, no
 /// trailing commas, no line folding. Still valid KYAML (and YAML).
 pub fn to_string_compact<T: Serialize>(value: &T) -> Result<String> {
-    render(value, true)
+	render(value, true)
 }
 
 /// Serializes `value` as a bare KYAML value into `writer` (the same output
 /// as [`to_string`]).
 pub fn to_writer<W: std::io::Write, T: Serialize>(mut writer: W, value: &T) -> Result<()> {
-    writer.write_all(to_string(value)?.as_bytes())?;
-    Ok(())
+	writer.write_all(to_string(value)?.as_bytes())?;
+	Ok(())
 }
 
 fn render<T: Serialize>(value: &T, compact: bool) -> Result<String> {
-    let value = serde_json::to_value(value)?;
-    let mut out = String::new();
-    ser::render_value(
-        &value,
-        0,
-        ser::Flags {
-            compact,
-            lazy_quote: false,
-        },
-        &mut out,
-    );
-    Ok(out)
+	let value = serde_json::to_value(value)?;
+	let mut out = String::new();
+	ser::render_value(&value, 0, ser::Flags { compact, lazy_quote: false }, &mut out);
+	Ok(out)
 }
