@@ -62,16 +62,20 @@ fn scalars() {
 	);
 }
 
+// rustfmt::skip: the expected string contains backslash-terminated lines
+// (YAML folds), which rustfmt mistakes for string continuations and
+// re-indents even inside the raw literal, corrupting the expectation.
 #[test]
+#[rustfmt::skip]
 fn multi_line_string_top_level() {
 	check(
 		&"This\n is a\n  multi-line\n string",
 		indoc! {r#"
-			"\
-			   This\n\
-			  \ is a\n\
-			  \  multi-line\n\
-			  \ string\
+            "\
+               This\n\
+              \ is a\n\
+              \  multi-line\n\
+              \ string\
               "
         "#},
 		r#""This\n is a\n  multi-line\n string""#,
