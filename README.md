@@ -1,6 +1,12 @@
-# serde_kyaml
+<h1 align="center">serde_kyaml</h1>
+<p align="center">
+    <a href="https://github.com/sondr3/serde_kyaml/actions"><img alt="GitHub Actions Status" src="https://github.com/sondr3/serde_kyaml/workflows/pipeline/badge.svg" /></a>
+    <a href="https://crates.io/crates/serde_kyaml"><img alt="Crates" src="https://img.shields.io/crates/v/serde_kyaml.svg" /></a>
+</p>
 
-A [KYAML] serializer for [serde].
+<p align="center">
+    <b>A <a href="https://github.com/kubernetes/enhancements/tree/master/keps/sig-cli/5295-kyaml">KYAML</a> serializer for <a href="https://serde.rs">serde</a></b>
+</p>
 
 KYAML ([KEP-5295][KYAML]) is a strict, unambiguous subset of YAML adopted by
 Kubernetes as an output format. It sidesteps the classic YAML footguns
