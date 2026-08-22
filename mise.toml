@@ -1,2 +1,13 @@
 [tools]
+hk = "latest"
+pkl = "latest"
 tombi = "latest"
+
+[settings]
+lockfile = true
+
+[env]
+HK_MISE = 1
+
+[hooks]
+postinstall = "hk install --mise"

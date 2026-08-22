@@ -1,0 +1,29 @@
+amends "package://github.com/jdx/hk/releases/download/v1.54.1/hk@1.54.1#/Config.pkl"
+import "package://github.com/jdx/hk/releases/download/v1.54.1/hk@1.54.1#/Builtins.pkl"
+
+local linters = new Mapping<String, Step> {
+    ["cargo-check"] = (Builtins.cargo_check) {
+        check = "cargo check --quiet"
+    }
+    ["cargo-clippy"] = Builtins.cargo_clippy
+    ["cargo-fmt"] = (Builtins.cargo_fmt) {
+        check = "cargo +nightly fmt --check --manifest-path {{workspace_indicator}}"
+        check_list_files = "cargo +nightly fmt --check --manifest-path {{workspace_indicator}} -- --files-with-diff"
+        fix = "cargo +nightly fmt --manifest-path {{workspace_indicator}}"
+    }
+}
+
+hooks {
+    ["pre-commit"] {
+        fix = true
+        stash = "git"
+        steps = linters
+    }
+    ["fix"] {
+        fix = true
+        steps = linters
+    }
+    ["check"] {
+        steps = linters
+    }
+}
