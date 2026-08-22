@@ -1,5 +1,6 @@
 [tools]
 hk = "latest"
+pinact = "latest"
 pkl = "latest"
 tombi = "latest"
 
